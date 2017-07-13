@@ -1,0 +1,506 @@
+File Sizes
+==========
+
+philadelphia_pennsylvania.osm 680335 KB
+open_street_map.db            386672 KB
+nodes.csv                     252593 KB
+nodes_tags.csv                 11049 KB
+ways.csv                       18766 KB
+ways_nodes.csv                 85187 KB
+ways_tags.csv                  49194 KB
+
+
+Queries run on cleaned data
+===========================
+
+Number of Nodes, Nodes_Tags, Ways, Ways_Nodes, Ways_Tags:
+---------------------------------------------------------
+
+sqlite> select count(*) from nodes;
+3141843
+
+sqlite> select count(*) from nodes_tags;
+279563
+
+sqlite> select count(*) from ways;
+328006
+
+sqlite> select count(*) from ways_nodes;
+3842368
+
+sqlite> select count(*) from ways_tags;
+1504158
+
+
+Users:
+------
+
+(1) How many unique users in nodes, ways, both?  Some users update both nodes and ways so the third value should be less than the sum
+
+sqlite> select count (distinct user) from nodes;
+2093
+
+sqlite> select count (distinct user) from ways;
+1532
+
+sqlite> select count(distinct(user)) from
+   ...> (select user from nodes union all
+   ...> select user from ways);
+2284
+
+
+Top Users:
+----------
+
+(1) Top 20 Users
+
+sqlite> select user, count(*) as count from
+   ...> (select user from nodes union all
+   ...> select user from ways)
+   ...> group by user
+   ...> order by count desc
+   ...> limit 20;
+
+dchiles|794391
+woodpeck_fixbot|544609
+NJDataUploads|222437
+WesWeaver|162618
+kylegiusti|105875
+choess|90217
+Matt1993|89049
+dankpoet|77839
+crystalwalrein|73537
+Aurimas Fi+íeras|70705
+Louise Belcher|63410
+eugenebata|61153
+Roadsguy|48682
+bot-mode|41630
+jhfi|34860
+ceyockey|34298
+Andrew Fish|29476
+NE2|29453
+TIGERcnl|27211
+GreyTK|23169
+
+(2) Users with just one update
+
+sqlite> select count(*) from
+   ...> (select user, count(*) as count from
+   ...> (select user from nodes union all
+   ...> select user from ways)
+   ...> group by user
+   ...> having count=1);
+481
+
+(3) Users with five or fewer updates
+
+sqlite> select count(*) from
+   ...> (select user, count(*) as count from
+   ...> (select user from nodes union all
+   ...> select user from ways)
+   ...> group by user
+   ...> having count<=5);
+900
+
+
+Highways:
+---------
+
+(1) How many "highway" types?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'highway';
+177572
+
+(2) Most common amenities in the Philadlephia OSM?  There are more residential streets so this makes some sense
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'highway'
+   ...> group by tags.value
+   ...> order by count desc
+   ...> limit 20;
+
+residential|71999
+service|38143
+footway|11711
+crossing|7027
+primary|6687
+turning_circle|6325
+traffic_signals|5667
+tertiary|5477
+secondary|4398
+motorway_link|2843
+trunk|2757
+motorway|2645
+stop|2303
+path|2288
+unclassified|1332
+trunk_link|1127
+track|844
+cycleway|675
+motorway_junction|614
+primary_link|522
+
+
+Amenities:
+----------
+
+(1) How many amenities?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'amenity';
+17093
+
+(2) What is the most common amenity?
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'amenity'
+   ...> group by tags.value
+   ...> order by count desc
+   ...> limit 20;
+
+parking|6199
+school|2139
+restaurant|1405
+place_of_worship|1159
+fast_food|569
+fire_station|519
+bank|426
+fuel|373
+social_facility|331
+cafe|303
+post_office|260
+bench|259
+pharmacy|212
+grave_yard|198
+library|189
+car_sharing|170
+bar|166
+police|152
+pub|124
+post_box|121
+
+(3) Parking?  Really?  Map_Features defines parking as "Car park. Nodes and areas (without access tag) will get a parking symbol"
+
+Parking Details indicates lots of parking lots entered in the data set with almost no entrances, spaces, garages, or exits!
+Is 'parking' used as a "catch_all" for any type of parking?  Possibly.  I expect to see more than 25 total parking spaces among 6000 parking lots!
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'amenity' and tags.value like '%park%'
+   ...> group by tags.value
+   ...> order by count desc;
+
+parking|6199
+parking_entrance|63
+bicycle_parking|61
+parking_space|25
+parking garage|1
+parking_exit|1
+
+
+Check on amenities updates:
+---------------------------
+
+(1) How many amenity:swimming_pool did we have in "dirty" database and how many "leisure:swimming_area"?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'amenity' and tags.value='swimming_pool';
+71
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'leisure' and tags.value='swimming_area';
+0
+
+(2) How many amenity:swimming_pool did we have in "clean" database and how many "leisure:swimming_area"?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key='amenity' and tags.value='swimming_pool';
+0
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key='leisure' and tags.value='swimming_area';
+71
+
+The data cleaning moved swimming pools to the latest key and value pairing!
+
+
+Shops:
+------
+
+(1) How many shops?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'shop';
+3277
+
+(2) Most common shops?  Why are there 42 "yes" shops?  This is a challenge of the data cleaning as "yes" can be a value for several other keys!
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.key = 'shop'
+   ...> group by tags.value
+   ...> order by count desc
+   ...> limit 20;
+
+convenience|466
+supermarket|272
+hairdresser|204
+clothes|203
+car_repair|173
+alcohol|119
+beauty|115
+car|110
+farm|80
+department_store|75
+furniture|74
+dry_cleaning|69
+doityourself|64
+bakery|61
+laundry|55
+mobile_phone|49
+yes|42
+pet|41
+gift|38
+shoes|36
+
+
+Streets
+-------
+
+(1) How many streets do we have?
+
+sqlite> select count(distinct(tags.value)) from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'street' and tags.value like '%Street';
+512
+
+(2) Does this pass the smell test?  Try for a known street - Market Street - which runs through Center City Philadelphia.
+
+sqlite> select count(distinct(tags.value)) from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'street' and tags.value like 'Market Street';
+1 
+
+(3) There is one Market Street in Philadelphia, but there are others in the suburbs.  Marcus Hook, PA also has a Market Street!
+    How to account for different cities to get a better estimation.
+
+Try pairing cities and streets.  Here we test for Marcus Hook's Market Street.  I tested nodes_tags and then ways_tags using the SELF JOIN syntax.
+I then applied to the union of nodes_tags and ways_tags to confirm the totals for select count(pairing).
+
+sqlite> select count(pairing) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> nodes_tags as c, nodes_tags as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='street'
+   ...> and c.value='Marcus Hook' and s.value='Market Street'
+   ...> and c.id=s.id);
+53 (1 with select count(distinct(pairing))
+
+sqlite> select count(pairing) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> ways_tags as c, ways_tags as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='street'
+   ...> and c.value='Marcus Hook' and s.value='Market Street'
+   ...> and c.id=s.id);
+21 (1 with select count(distinct(pairing))
+
+sqlite> select count(pairing) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> (select * from nodes_tags union all select * from ways_tags) as c,
+   ...> (select * from nodes_tags union all select * from ways_tags) as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='street'
+   ...> and c.value='Marcus Hook' and s.value='Market Street'
+   ...> and c.id=s.id);
+74 (1 with select count(distinct(pairing))
+
+(4) Finally, with the correct query format, we are able to see eight unique Market Streets on the map, assuming each of the eight cities has a unique Market Street.
+
+sqlite> select count(distinct(pairing)) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> (select * from nodes_tags union all select * from ways_tags) as c,
+   ...> (select * from nodes_tags union all select * from ways_tags) as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='street'
+   ...> and s.value='Market Street'
+   ...> and c.id=s.id);
+8
+
+(5) Apply the query format and find out how many street types we see for some types.
+
+sqlite> select count(distinct(pairing)) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> (select * from nodes_tags union all select * from ways_tags) as c,
+   ...> (select * from nodes_tags union all select * from ways_tags) as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='street'
+   ...> and s.value like '%Street'
+   ...> and c.id=s.id);
+532
+
+'%Avenue': 430
+'%Road':   418
+'%Place':  13
+'%Lane':   69
+
+
+Cities:
+-------
+
+(1) How many city entries and how many Philadelphia entries?
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'city';
+16056
+
+sqlite> select count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'city' and tags.value="Philadelphia";
+3722
+
+(2) Top city entries?
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'city'
+   ...> group by tags.value
+   ...> order by count desc
+   ...> limit 20;
+
+Philadelphia|3722
+Pemberton|2092
+Trenton City|1611
+Narberth|1444
+Lawrence Township|1161
+Boothwyn|845
+Voorhees|738
+Marcus Hook|362
+Cherry Hill|334
+Marlton|228
+Voorhees Township|219
+Conshohocken|184
+Ewing Township|140
+Cherry Hill Township|135
+Chalfont|122
+Wayne|122
+Hopewell Township|121
+Doylestown|113
+Mount Laurel|109
+Ogden|104
+
+(3) Any particular users explain the number of Pemberton entries?  Pemberton only has population 27771 as of 2015!  User 'Luisi Mouse' entered lots of data
+    for this small town - and a few entries for adjacent Mount Holly Township
+
+sqlite> select distinct(nodes.user) from
+   ...> (nodes join nodes_tags on nodes.id = nodes_tags.id)
+   ...> where nodes_tags.type = 'addr' and nodes_tags.key = 'city' and nodes_tags.value = 'Pemberton';
+Luisi Mouse
+
+sqlite> select distinct(ways.user) from
+   ...> (ways join ways_tags on ways.id = ways_tags.id)
+   ...> where ways_tags.type = 'addr' and ways_tags.key = 'city' and ways_tags.value = 'Pemberton';
+Luisi Mouse
+
+sqlite> select distinct(nodes_tags.value) from
+   ...> (nodes join nodes_tags on nodes.id = nodes_tags.id)
+   ...> where nodes.user = 'Luisi Mouse' and nodes_tags.type = 'addr' and nodes_tags.key = 'city';
+Pemberton
+
+sqlite> select distinct(ways_tags.value) from
+   ...> (ways join ways_tags on ways.id = ways_tags.id)
+   ...> where ways.user = 'Luisi Mouse' and ways_tags.type = 'addr' and ways_tags.key = 'city';
+Pemberton
+Mount Holly Township
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'city' and (tags.value like 'Pemb%' or tags.value like '%Holly%')
+   ...> group by tags.value
+   ...> order by count desc;
+Pemberton|2092
+Mount Holly Township|2
+Mount Holly|1
+
+(4) Let's see the number of unique cities?  We assume each city name is unqiue across PA, NJ, and DE suburbs of Philadelphia.
+    But some nodes and ways have "addr:city" without "addr:state"
+
+sqlite> select count(distinct(tags.value)) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'city';
+249
+
+sqlite> select count(distinct(pairing)) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> (select * from nodes_tags union all select * from ways_tags) as c,
+   ...> (select * from nodes_tags union all select * from ways_tags) as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='state'
+   ...> and c.id=s.id);
+211
+
+Last but not least, States:
+---------------------------
+
+(1) Highest number of entries are in PA (which includes the biggest city Philadephia) but NJ does pretty well - South Jersey has no cities near Philly's population.
+    Four tags are outside the Philly area!
+
+sqlite> select tags.value, count(*) as count from
+   ...> (select * from nodes_tags union all
+   ...> select * from ways_tags) tags
+   ...> where tags.type = 'addr' and tags.key = 'state'
+   ...> group by tags.value
+   ...> order by count desc;
+PA|6383
+NJ|4400
+DE|84
+CA|1
+MA|1
+ME|1
+NY|1
+
+(2) How many unique cities per state?
+
+sqlite> select count(distinct(pairing)) from
+   ...> (select (c.value || '/' || s.value) as pairing from
+   ...> (select * from nodes_tags union all select * from ways_tags) as c,
+   ...> (select * from nodes_tags union all select * from ways_tags) as s
+   ...> where c.type='addr' and c.key='city'
+   ...> and s.type='addr' and s.key='state'
+   ...> and s.value='PA'
+   ...> and c.id=s.id);
+129
+
+'NJ': 73
+'DE': 5
+
+Total: 207 (211 - 4 outliers)
