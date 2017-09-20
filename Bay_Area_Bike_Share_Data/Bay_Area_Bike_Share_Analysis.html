@@ -11825,7 +11825,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import all necessary packages and functions.</span>
@@ -11846,7 +11846,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># file locations</span>
@@ -11884,7 +11884,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;201309_trip_data.csv&#39;</span><span class="p">)</span>
@@ -12031,7 +12031,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the first few rows of the station data file.</span>
@@ -12164,15 +12164,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You can now use the mapping to condense the trip data to the selected columns noted above. This will be performed in the <code>summarise_data()</code> function below. As part of this function, the <code>datetime</code> module is used to <strong>p</strong>arse the timestamp strings from the original data file as datetime objects (<code>strptime</code>), which can then be output in a different string <strong>f</strong>ormat (<code>strftime</code>). The parsed objects also have a variety of attributes and methods to quickly obtain</p>
-<p>There are two tasks that you will need to complete to finish the <code>summarise_data()</code> function. First, you should perform an operation to convert the trip durations from being in terms of seconds to being in terms of minutes. (There are 60 seconds in a minute.) Secondly, you will need to create the columns for the year, month, hour, and day of the week. Take a look at the <a href="https://docs.python.org/2/library/datetime.html#datetime-objects">documentation for datetime objects in the datetime module</a>. <strong>Find the appropriate attributes and method to complete the below code.</strong></p>
+<p>You can now use the mapping to condense the trip data to the selected columns noted above. This will be performed in the <code>summarise_data()</code> function below. As part of this function, the <code>datetime</code> module is used to parse the timestamp strings from the original data file as datetime objects (<code>strptime</code>), which can then be output in a different string format (<code>strftime</code>). The parsed objects also have a variety of attributes and methods to quickly obtain</p>
+<p>There are two tasks that you will need to complete to finish the <code>summarise_data()</code> function. First, you should perform an operation to convert the trip durations from being in terms of seconds to being in terms of minutes. Secondly, you will need to create the columns for the year, month, hour, and day of the week. Take a look at the <a href="https://docs.python.org/2/library/datetime.html#datetime-objects">documentation for datetime objects in the datetime module</a>. <strong>Find the appropriate attributes and method to complete the below code.</strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">summarise_data</span><span class="p">(</span><span class="n">trip_in</span><span class="p">,</span> <span class="n">station_data</span><span class="p">,</span> <span class="n">trip_out</span><span class="p">):</span>
@@ -12249,7 +12249,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Process the data by running the function we wrote above.</span>
@@ -12401,7 +12401,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trip_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;201309_trip_summary.csv&#39;</span><span class="p">)</span>
@@ -12431,7 +12431,7 @@ The median trip duration is 10.72 minutes.
 </div>
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[32]:</div>
+<div class="prompt output_prompt">Out[33]:</div>
 
 
 
@@ -12458,7 +12458,7 @@ The median trip duration is 10.72 minutes.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s1">&#39;subscription_type&#39;</span><span class="p">)</span>
@@ -12682,7 +12682,7 @@ lCFAkqRKGQIkSarU/wdYmxBhHIAJdQAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">)</span>
@@ -12870,7 +12870,7 @@ hKEvSVIhDH1Jkgph6EuSVIj/D0W2Ek8BiwxiAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;duration &lt; 60&#39;</span><span class="p">])</span>
@@ -13052,7 +13052,7 @@ fUmSCvH/AV0Irfp6ozLaAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;duration &lt; 60&#39;</span><span class="p">],</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
@@ -13240,7 +13240,7 @@ L0lSgQx4SZIKZMBLklQgA16SpAL9f2Ad/L2sL3SVAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;201402_station_data.csv&#39;</span><span class="p">,</span>
@@ -13273,7 +13273,7 @@ L0lSgQx4SZIKZMBLklQgA16SpAL9f2Ad/L2sL3SVAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trip_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;babs_y1_y2_summary.csv&#39;</span><span class="p">)</span>
@@ -13417,11 +13417,10 @@ L0lSgQx4SZIKZMBLklQgA16SpAL9f2Ad/L2sL3SVAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bike usage for each day of the week:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saturday Usage:&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saturday Usage:&quot;</span><span class="p">)</span>
 <span class="n">usage_stats</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;weekday == Saturday&quot;</span><span class="p">])</span>
 </pre></div>
 
@@ -13437,8 +13436,7 @@ L0lSgQx4SZIKZMBLklQgA16SpAL9f2Ad/L2sL3SVAAAAAElFTkSuQmCC
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Bike usage for each day of the week:
-
+<pre>
 Saturday Usage:
 There are 44785 data points (6.68%) matching the filter criteria.
 The average duration of trips is 46.91 minutes.
@@ -13450,7 +13448,7 @@ The median trip duration is 12.23 minutes.
 </div>
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[39]:</div>
+<div class="prompt output_prompt">Out[40]:</div>
 
 
 
@@ -13466,7 +13464,7 @@ The median trip duration is 12.23 minutes.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;duration &lt;= 40&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday == &#39;Saturday&#39;&quot;</span><span class="p">],</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -13641,7 +13639,7 @@ UiEMfUmSCmHoS5JUCENfkqRCGPqSJBXC0JckqRCGviRJhfj/vj2641AxdUgAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;duration &gt; 40&quot;</span><span class="p">,</span> <span class="s2">&quot;duration &lt;= 300&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday == &#39;Saturday&#39;&quot;</span><span class="p">],</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">40</span><span class="p">)</span>
@@ -13827,7 +13825,7 @@ kgpmkEuSVLD/D6DbTDyPKnvXAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;duration &gt; 300&quot;</span><span class="p">,</span> <span class="s2">&quot;duration &lt;= 2000&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday == &#39;Saturday&#39;&quot;</span><span class="p">],</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>
@@ -14024,7 +14022,7 @@ kiQVwlCXJKkQhrokSYUw1CVJKsT/B34vSWLq9xzpAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Final Plot 1</span>
@@ -14391,11 +14389,10 @@ KpABL0lSgQx4SZIKZMBLklQgA16SpAIZ8JIkFej/Aw68PWFeTSWxAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Final Plot 2</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bike usage for each day of the week:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saturday Usage:&quot;</span><span class="p">)</span>
 <span class="n">usage_stats</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;weekday == Saturday&quot;</span><span class="p">])</span>
 
@@ -14405,7 +14402,7 @@ KpABL0lSgQx4SZIKZMBLklQgA16SpAIZ8JIkFej/Aw68PWFeTSWxAAAAAElFTkSuQmCC
 <span class="c1"># Trip duration from 45 to 300 minutes</span>
 <span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;duration &gt; 45&quot;</span><span class="p">,</span> <span class="s2">&quot;duration &lt;= 300&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday == &#39;Saturday&#39;&quot;</span><span class="p">],</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
 
-<span class="c1"># Trip duratioon over 300 minutes (note the bar width is 50 minutes rather than five minutes)</span>
+<span class="c1"># Trip duration over 300 minutes (note the bar width is 50 minutes rather than five minutes)</span>
 <span class="n">usage_plot</span><span class="p">(</span><span class="n">trip_data</span><span class="p">,</span> <span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;duration &gt; 300&quot;</span><span class="p">,</span> <span class="s2">&quot;duration &lt;= 2000&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday == &#39;Saturday&#39;&quot;</span><span class="p">],</span> <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">boundary</span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>
 </pre></div>
 
@@ -14421,8 +14418,7 @@ KpABL0lSgQx4SZIKZMBLklQgA16SpAIZ8JIkFej/Aw68PWFeTSWxAAAAAElFTkSuQmCC
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Bike usage for each day of the week:
-
+<pre>
 Saturday Usage:
 There are 44785 data points (6.68%) matching the filter criteria.
 The average duration of trips is 46.91 minutes.
