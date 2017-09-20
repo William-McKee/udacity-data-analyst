@@ -19,3 +19,5 @@ All files shall be downloaded in the same directory.
 The source code is written in Python 3.6.  Python 3.6 is available [here](https://www.python.org/downloads/).
 
 The code can be run in any Python source code editor.  Anaconda is available [here](https://www.continuum.io/downloads).  Install for Python 3.X series.
+
+Run the code in **poi_id.py** to create the machine learning algorithm.  Run **tester.py** to test the algorithm.

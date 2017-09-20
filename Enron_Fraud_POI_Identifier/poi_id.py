@@ -42,7 +42,7 @@ add_features(data_dict)
 #features_list = ['poi', 'total_money', 'total_poi_emails']
 
 # Final features selected based on best model performance using Decision Tree Classifier with no parameters
-# Precision and recall scores were between 0.35 and 0.37 for each run
+# Precision score around 0.50, recall scores around 0.35 for each run
 features_list = ['poi', 'salary', 'bonus', 'expenses']
 
 data = featureFormat(data_dict, features_list)

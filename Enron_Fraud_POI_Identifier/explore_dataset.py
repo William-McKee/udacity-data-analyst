@@ -24,7 +24,7 @@ def get_feature_valid_points_count(dataset, feature, bad_value):
     '''
     How many points in data set?
     dataset: dictionary containing list of people, where each person is represented by dictionary
-    feature: feature for which to find valis data points
+    feature: feature for which to find valid data points
     bad_value: for valid point, feature != this value
     '''
     count=0
