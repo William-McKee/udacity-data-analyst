@@ -180,7 +180,7 @@ I looked at the whole data set and see 243513 rows, each which represent one don
 
 The listings and plots below show that Democrats Hillary Clinton and Bernie Sanders had the most donations, followed by Donald Trump in third place. Hillary Clinton received nearly half of the total number of donations from Pennsylvanians while Bernie Sanders netted nearly 25 percent so the two leading Democratic candidates netted over 70 percent of all donations in Pennsylvania.  Among the Republicans, Donald Trump had the most donations with Ted Cruz getting just above half of Trump's number.  Republicans Benjamin Carson, Marco Rubio, and Rand Paul are in 5th to 7th place, each receiving over 1000 donations.  These donation counts represent the total number of donations from early 2015 through the November 2016 election.
 
-```{r echo=FALSE, Unique_candidate_count}
+```{r echo=FALSE, Unique_Candidate_Count}
 # Show Unique candidates
 print("Unique Candidate Count: ")
 length(unique(pa_df$`Candidate Name`))
@@ -204,13 +204,13 @@ pa_df.candidate_info
 ```
 
 
-```{r echo=FALSE, Total_number_of_donation_lines}
+```{r echo=FALSE, Total_Number_of_Donation_Lines}
 # Show total number of donation lines
 print("Total Donation Lines Count: ")
 nrow(pa_df)
 ```
 
-```{r echo=FALSE, Total_donations_and_refunds}
+```{r echo=FALSE, Total_Donations_and_Refunds}
 # See which donation entries are actually donations versus refunds
 pa_df.donations <- subset(pa_df, 
     select=c(`Candidate Name`, `Political Party`, `Contributor Receipt`))
@@ -228,7 +228,7 @@ donation_count
 refund_count
 ```
 
-```{r echo=FALSE, Canidate_donations_and_refunds}
+```{r echo=FALSE, Candidate_Donations_and_Refunds}
 # Get donation and refund counts
 pa_df.num_donations <- pa_df.donations %>%
   group_by(`Candidate Name`, `Political Party`) %>%
@@ -247,7 +247,7 @@ names(pa_df.num_donations)[names(pa_df.num_donations) == 'num_refunds'] <-
 pa_df.num_donations
 ```
 
-```{r, echo=FALSE, Donation_Count_per_Candidate_plot}
+```{r, echo=FALSE, Donation_Count_per_Candidate_Plot}
 # Donation Count showing all candidates
 ggplot(data=pa_df.num_donations, aes(x=`Candidate Name`, y=`Donation Count`)) + 
   geom_bar(stat='identity') +
@@ -258,7 +258,7 @@ ggplot(data=pa_df.num_donations, aes(x=`Candidate Name`, y=`Donation Count`)) +
 ```
 
 ```{r, echo=FALSE, Donation_Count_per_Candidate_Top_7_Plot}
-# Show only top 5 in plot
+# Show only top seven in plot
 top_candidate_donation_counts <- pa_df.num_donations[1:7, ]
 
 # Plot donation counts
@@ -277,7 +277,7 @@ I then organized the same data by political party so that we can see the number 
 
 There were way more Republican candidates in the 2016 Presidential Primaries compared to the Democrats (16-5) but the Democrats gathered close to three times as many donations as the Republicans for the full 2016 campaign cycle.
 
-```{r, echo=FALSE, Number_of_Donations_by_political_party}
+```{r, echo=FALSE, Number_of_Donations_by_Political_Party}
 # Group the previous data frame by party and get listing
 pa_df.num_donations_by_party <- pa_df.num_donations %>%
   group_by(`Political Party`) %>%
@@ -295,7 +295,7 @@ names(pa_df.num_donations_by_party)[
 pa_df.num_donations_by_party
 ```
 
-```{r, echo=FALSE, Donation_Count_by_Party_plot}
+```{r, echo=FALSE, Donation_Count_by_Party_Plot}
 # Plot Donation Count by party
 ggplot(data=pa_df.num_donations_by_party, 
        aes(x=`Political Party`, y=`Donation Count`)) + 
@@ -306,7 +306,7 @@ ggplot(data=pa_df.num_donations_by_party,
   scale_y_log10()
 ```
 
-```{r, echo=FALSE, Donation_Count_by_Major_Party_plot}
+```{r, echo=FALSE, Donation_Count_by_Major_Party_Plot}
 # Limit to major parties
 major_party_donation_counts <- pa_df.num_donations_by_party[1:2, ]
 
@@ -328,7 +328,7 @@ The summary data tells us that the bulk of individual donations amounts are smal
 # Look at donations only!
 pa_df.donations <- pa_df.donations[pa_df.donations$Donation == 1, ]
 
-# summarize
+# Summarize
 summary(pa_df.donations$`Contributor Receipt`)
 ```
 
@@ -395,7 +395,7 @@ Among the 11th to 20th most common cities, seven are in the Philadelphia suburbs
 
 The plot shows donation counts from the top 20 cities.  The y-scale is logarithmic.
 
-```{r echo=FALSE, Most_common_cities}
+```{r echo=FALSE, Most_Common_Cities}
 # Get list of most common cities and counts
 pa_df.cities <- pa_df %>%
   group_by(`Contributor City`) %>%
@@ -406,7 +406,7 @@ pa_df.cities <- pa_df %>%
 head(pa_df.cities, 20)
 ```
 
-```{r, echo=FALSE, Most_common_cities_Plot}
+```{r, echo=FALSE, Most_Common_Cities_Plot}
 # Plot most common cities
 qplot(data=head(pa_df.cities, 20), x=`Contributor City`) + 
   geom_bar(stat='identity', aes(x=`Contributor City`, y=`Count`)) +
@@ -424,7 +424,7 @@ Above, we saw that many of the common donor cities were near Philadelphia. Phila
 
 The top ten zip codes are plotted in a histogram below.  The y-axis depicts donation count and is not transformed.
 
-```{r echo=FALSE, Most_common_zip_codes}
+```{r echo=FALSE, Most_Common_Zip_Codes}
 # Make donations by zip code subset
 pa_df.zip_codes <- subset(pa_df, select=c(`Contributor Zip`))
 
@@ -445,7 +445,7 @@ names(pa_df.zip_codes)[names(pa_df.zip_codes) == 'num_donations'] <- 'Count'
 head(pa_df.zip_codes, 10)
 ```
 
-```{r, echo=FALSE, Most_common_zip_codes_Plot}
+```{r, echo=FALSE, Most_Common_Zip_Codes_Plot}
 # Plot most common zip codes
 qplot(data=head(pa_df.zip_codes, 10), x=`Contributor Zip`) + 
   geom_bar(stat='identity', aes(x=`Contributor Zip`, y=`Count`)) +
@@ -462,7 +462,7 @@ If we exclude "Information Requested", Attorneys have the third highest donation
 
 The plot shows counts of the top 20 occupations and is transformed using log10 function.  "Information Requested" and "Information Requested Per Best Efforts" is not shown in the plot. Executive and Artist, which were in 21st and 22nd place, show up in the plot.
 
-```{r echo=FALSE, Most_common_occupations}
+```{r echo=FALSE, Most_Common_Occupations}
 # Get list of most common occupations and counts
 pa_df.occupations <- pa_df %>%
   group_by(`Contributor Occupation`) %>%
@@ -473,7 +473,7 @@ pa_df.occupations <- pa_df %>%
 head(pa_df.occupations, 20)
 ```
 
-```{r, echo=FALSE, Most_common_occupations_Plot}
+```{r, echo=FALSE, Most_Common_Occupations_Plot}
 # Remove "Information Requested Items" before plotting
 library(data.table)
 
@@ -575,7 +575,7 @@ names(pa_df.sum_donations)[names(pa_df.sum_donations) == 'sum_donations'] <-
 pa_df.sum_donations
 ```
 
-```{r, echo=FALSE, Donation_Sum_per_Candidate_top_5_plot}
+```{r, echo=FALSE, Donation_Sum_per_Candidate_Top_5_Plot}
 # Donation Sum showing top five
 top_candidate_donation_sum_counts <- pa_df.sum_donations[1:5, ]
 
@@ -595,7 +595,7 @@ In this section, the donation sum data is organized by political party so that w
 
 The below list and plot shows that the Democratic candidates raised over $15.6 million dollars total comapred to the Republicans' $10.45 million.  Hillary Clinton and Bernie Sanders received almost all of the Democratic donations!  Clinton herself received more donations from Pennsylvania ($12.9 million from above section) than all the Republican candidates put together!
 
-```{r, echo=FALSE, Sum_of_Donations_by_political_party}
+```{r, echo=FALSE, Sum_of_Donations_by_Political_Party}
 # Group the previous data frame by party and get listing
 pa_df.sum_donations_by_party <- pa_df.sum_donations %>%
   group_by(`Political Party`) %>%
@@ -613,7 +613,7 @@ names(pa_df.sum_donations_by_party)[
 pa_df.sum_donations_by_party
 ```
 
-```{r, echo=FALSE, Donation_Sum_by_Major_Party_plot}
+```{r, echo=FALSE, Donation_Sum_by_Major_Party_Plot}
 # Limit to major parties only
 major_party_donation_sum_counts <- pa_df.sum_donations_by_party[1:2, ]
 
@@ -633,7 +633,7 @@ When we narrow the list to Pennsylvania primary contestants, Republican John R. 
 
 The amount per donation (as well as total money raised) is not a good predictor of the winners of the primary and general election but may tell us about who is donating to each candidate.
 
-```{r echo=FALSE, Amount_per_donation}
+```{r echo=FALSE, Amount_per_Donation}
 # Add in amount per donation column
 pa_df.sum_donations$`Amount per Donation` <- 
   pa_df.sum_donations$`Donation Sum` / pa_df.sum_donations$`Donation Count`
@@ -647,7 +647,7 @@ print("Candidate Amount per Donation:")
 pa_df.sum_donations
 ```
 
-```{r echo=FALSE, Amount_per_donation_for_PA_primary_contestants}
+```{r echo=FALSE, Amount_per_Donation_for_PA_Primary_Contestants}
 pa_primary_contestants <- 
   c("Clinton, Hillary Rodham", "Sanders, Bernard", "Trump, Donald J.", 
     "Cruz, Rafael Edward 'Ted'", "Kasich, John R.")
@@ -660,7 +660,7 @@ print("Candidate Amount per Donation (Primary contestants only):")
 pa_primary_contestants_sum_donations
 ```
 
-```{r echo=FALSE, Amount_per_donation_plot_for_PA_primary_contestants}
+```{r echo=FALSE, Amount_per_Donation_Plot_for_PA_Primary_Contestants}
 # Plot candidates amount per donation
 ggplot(data=pa_primary_contestants_sum_donations, 
        aes(x=`Candidate Name`, y=`Amount per Donation`)) + 
@@ -675,7 +675,7 @@ ggplot(data=pa_primary_contestants_sum_donations,
 
 When we analyze amount per donation by party, the Libertarians' have the lead. Unfortunately for them, they only received 385 donations. Among the major parties, the Republican Party raised nearly twice as much per donation as the Democrats. The Democrats had nearly three times as many individual donations so they were able to raise 50% more money from Pennsylvanians as the Republicans.
 
-```{r echo=FALSE, Amount_per_donation_per_party}
+```{r echo=FALSE, Amount_per_Donation_per_Party}
 # Add in number of donations column
 pa_df.sum_donations_by_party$`Donation Count` <-
   pa_df.num_donations_by_party$`Donation Count`
@@ -693,7 +693,7 @@ pa_df.sum_donations_by_party <- pa_df.sum_donations_by_party[
 pa_df.sum_donations_by_party
 ```
 
-```{r echo=FALSE, Amount_per_donation_by_party_plot}
+```{r echo=FALSE, Amount_per_Donation_by_Party_Plot}
 # Plot Amount per donation by party
 ggplot(data=pa_df.sum_donations_by_party,
        aes(x=`Political Party`, y=`Amount per Donation`)) + 
@@ -768,7 +768,7 @@ This part of the report investigates donations by seasons for candidates where t
 Donald Trump raised just over $2.9 million during the 2016 general election campaign in Pennsylvania, the most among Republicans in an election season. During the 2016 primaries, Bernard Sanders was able to net his $2.5 million dollars on 59242 donors during the primaries, the second highest during the primaries.  Senator Ted Cruz raised about $120K more money than Donald Trump during the Republican primary although Trump had 950 more individual
 donors.
 
-```{r echo=FALSE, Donations_to_candidates_by_season}
+```{r echo=FALSE, Donations_to_Candidates_by_Season}
 # Make donations by season subset
 pa_df.donation_season_df <- 
   subset(pa_df, select=c(`Candidate Name`, `Political Party`, 
@@ -798,7 +798,7 @@ If we break up the seasons by political party and plot, we can better visualize 
 
 The Democratic primary plot shows Clinton's nearly $6 million raised, more than double Bernie Sanders's $2.5 million. The Republican sums were between $500K and $1.5 million for the top five finishers. John Kasich was a contestant in the primary despite getting less money from Pennsylvania Republicans than Marco Rubio and Ben Carson, who both dropped out of the race before the primary.  The general election plot confirms that Clinton raised about 2.3 times as much money in Pennsylvania as Trump.
 
-```{r echo=FALSE, Democratic_primary_money_raised}
+```{r echo=FALSE, Democratic_Primary_Money_Raised}
 # Limit to Democrats during the primary
 pa_dem_primary_donations <- pa_df.donations_by_season[
   pa_df.donations_by_season$`Political Party` == 'Democratic' &
@@ -812,7 +812,7 @@ ggplot(data=pa_dem_primary_donations[1:2, ],
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-```{r echo=FALSE, Republican_primary_money_raised}
+```{r echo=FALSE, Republican_Primary_Money_Raised}
 # Limit to Republicans during the primary
 pa_rep_primary_donations <- pa_df.donations_by_season[
   pa_df.donations_by_season$`Political Party` == 'Republican' &
@@ -827,7 +827,7 @@ ggplot(data=pa_rep_primary_donations[1:5, ],
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-```{r echo=FALSE, General_election_money_raised}
+```{r echo=FALSE, General_Election_Money_Raised}
 # Limit to general election
 pa_general_election_donations <- pa_df.donations_by_season[
   pa_df.donations_by_season$`Season` == 'G2016', ]
@@ -848,7 +848,7 @@ Those two cities also donated over $750K to Democrat Bernard Sanders.  Republica
 
 In the plot below, Clinton's fundraising advantage in the most common donor cities becomes very apparent!  The values plotted are the square root of the actual values.  Trump's bar *shows* only for Philadelphia, Pittsburgh, and West Chester and is only close to Clinton in West Chester.
 
-```{r echo=FALSE, Donations_from_cities}
+```{r echo=FALSE, Donations_from_Cities}
 # Make donations by city subset
 pa_df.donation_city_df <- 
   subset(pa_df, 
@@ -875,7 +875,7 @@ pa_df.donations_by_city <- pa_df.donations_by_city[
 pa_df.donations_by_city[1:20, ]
 ```
 
-```{r echo=FALSE, Donation_by_city_plot, fig.width=8}
+```{r echo=FALSE, Donation_by_City_Plot, fig.width=8}
 # Fill colors
 colors <- c("Trump, Donald J." = "red", 
             "Clinton, Hillary Rodham" = "blue")
@@ -914,7 +914,7 @@ The first plot shows how much more money Clinton raised in the Philadelphia area
 
 Scaling the y-axis as square root shows that Trump received more donations than Clinton in some rural parts of Pennsylvania. The zip code groupings of 153, 154, 157, 158, 159, and 167 - all in western Pennsylvania - gave Trump his best showing versus Clinton. The 153 and 154 areas - in the southwest corner of Pennsylvania - were solidly Democratic a generation ago. In the 1988 presidential election, Democrat Mike Dukakis nearly defeated Republican George H.W. Bush in Pennsylvania thanks to his victories in this part of the state (back then, the Philadelphia suburbs were Republican). Trump also broke even with Clinton in Berks County (195 and 196) near Reading, Pennsylvania, a traditionally Democratic area.
 
-```{r echo=FALSE, Donation_by_zip_code}
+```{r echo=FALSE, Donation_by_Zip_Code}
 # Make donations by zip code subset
 pa_df.donation_zip_df <- 
   subset(pa_df, 
@@ -945,7 +945,7 @@ pa_df.donations_by_zip <- pa_df.donations_by_zip[
 pa_df.donations_by_zip[1:20, ]
 ```
 
-```{r echo=FALSE, Donation_by_zip_code_plot, fig.width=12}
+```{r echo=FALSE, Donation_by_Zip_Code_Plot, fig.width=12}
 # Fill colors
 colors <- c("Trump, Donald J." = "red", 
             "Clinton, Hillary Rodham" = "blue")
@@ -976,7 +976,7 @@ The common occupation among donors were retired people. In Pennsylvania during t
 
 The plot scales the y-axis using the sqrt function in order to highlight the differences among all of the common contributor occupations. Among the most commonly named occupations, Hillary Clinton far outraised Donald Trump among Retired and Attorneys. Clinton also received nearly $500K in donations each from Physicians and Professors in Pennsylvania.  Clinton received more in donations from all of the top contributing occupations except Owner, Sales, and Self Employed.  Among Owners, both candidates received a donation sum around $175K.  In Sales, both candidates were donated below $100K.  Only among Self Employed donors did Trump outperform Clinton and he received $100K total.
 
-```{r echo=FALSE, Donation_by_occupation_subset}
+```{r echo=FALSE, Donation_by_Occupation_Subset}
 # Make donations by occupation subset
 pa_df.donation_occupation_df <- 
   subset(pa_df, select=c(`Candidate Name`, `Political Party`, 
@@ -1007,7 +1007,7 @@ pa_final_candidates_donations_by_occupation <-
 pa_final_candidates_donations_by_occupation[1:20, ]
 ```
 
-```{r echo=FALSE, Compare_candidates_among_most_common_occupations, fig.width=8}
+```{r echo=FALSE, Compare_Candidates_Among_Most_Common_Occupations, fig.width=8}
 library(data.table)
 # Get list of top occupations
 pa_top_occupations <- pa_df.occupations$`Contributor Occupation`[1:20]
@@ -1046,7 +1046,7 @@ A square root transformation of the y-axis better describes the donations on the
 
 Finally, in June 2016, did Donald Trump finally receive $500K in monthly donations from Pennsylvania Republicans. Incredibly, Donald Trump won the state's Republican primary by a wide margin despite the lack of donations compared against other Republicans. Trump then won Pennsylvania in the general election even though he received less donation money *every month* of the campaign then Clinton in the state!
 
-```{r echo=FALSE, Donations_over_time}
+```{r echo=FALSE, Donations_Over_Time}
 # Get candidates monthly donations
 candidates_over_time <- 
   subset(pa_df, select=c(`Candidate Name`,  
@@ -1075,7 +1075,7 @@ names(candidates_over_time)[
   names(candidates_over_time) == 'Contributor Receipt'] <- 'Donation Sum'
 ```
 
-```{r, Donations_over_time_Democrats}
+```{r, Donations_Over_Time_Democrats}
 # Limit to top Democratic candidates
 top_dem_candidates <- c("Clinton, Hillary Rodham", "Sanders, Bernard")
 
@@ -1100,7 +1100,7 @@ ggplot(data=dem_candidates_over_time,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-```{r, Donations_over_time_Republicans}
+```{r, Donations_Over_Time_Republicans}
 # Limit to top Republican candidates
 top_rep_candidates <- c("Trump, Donald J.", 
                         "Cruz, Rafael Edward 'Ted'",
@@ -1125,7 +1125,7 @@ ggplot(data=rep_candidates_over_time,
 ```
 
 
-```{r, Donations_over_time_General_Election_Candidates}
+```{r, Donations_Over_Time_General_Election_Candidates}
 # Limit to top Republican candidates
 ge_candidates <- c("Trump, Donald J.", "Clinton, Hillary Rodham")
 
@@ -1196,7 +1196,7 @@ Trump donors' most common occupations are Attorney, CEO, Executive, Homemaker, O
 
 Clinton supporters across Pennsylvania, regardless of occupations, were more likely to make a donation in support of their candidate than Trump supporters.
 
-```{r echo=FALSE, Donations_by_zip_code_and_occupation}
+```{r echo=FALSE, Donations_by_Zip_Code_and_Occupation}
 # Make donations by zip code and occupations subset
 pa_df.donation_zip_occupation_df <- 
   subset(pa_df, select=c(`Candidate Name`,  
@@ -1224,7 +1224,7 @@ names(pa_df.donations_by_zip_occupation)[
 ```
 
 
-```{r echo=FALSE, Clinton_donations_by_zip_and_occupation_list}
+```{r echo=FALSE, Clinton_Donations_by_Zip_and_Occupation_List}
 library(data.table)
 # Get top occupations among Clinton donors
 pa_df.donations_by_occupation_clinton <- subset(
@@ -1270,7 +1270,7 @@ pa_df.donations_by_zip_occupation_clinton[1:20, ]
 ```
 
 
-```{r echo=FALSE, Clinton_donations_by_zip_and_occupation_plot, fig.width=10}
+```{r echo=FALSE, Clinton_Donations_by_Zip_and_Occupation_Plot, fig.width=10}
 # Plot Clinton donations by zip code grouping and occupation
 library(ggplot2)
 ggplot(data=pa_df.donations_by_zip_occupation_clinton,
@@ -1284,7 +1284,7 @@ ggplot(data=pa_df.donations_by_zip_occupation_clinton,
   scale_y_log10()
 ```
 
-```{r echo=FALSE, Trump_donations_by_zip_and_occupation_list}
+```{r echo=FALSE, Trump_Donations_by_Zip_and_Occupation_List}
 library(data.table)
 # Get top occupations among Trump donors
 pa_df.donations_by_occupation_trump <- subset(
@@ -1330,7 +1330,7 @@ pa_df.donations_by_zip_occupation_trump[1:20, ]
 ```
 
 
-```{r echo=FALSE, Trump_donations_by_zip_and_occupation_plot, fig.width=10}
+```{r echo=FALSE, Trump_Donations_by_Zip_and_Occupation_Plot, fig.width=10}
 # Plot Trump donations by zip code grouping and occupation
 library(ggplot2)
 ggplot(data=pa_df.donations_by_zip_occupation_trump,
@@ -1352,7 +1352,7 @@ Donald Trump did not receive donations from donors having some of his top occupa
 
 Both candidates received more donations after wrapping up their party's nomination until the general election.
 
-```{r echo=FALSE, Donations_by_donation_month_and_occupation}
+```{r echo=FALSE, Donations_by_Donation_Month_and_Occupation}
 # Make donations by donation month and occupations subset
 pa_df.donation_month_occupation_df <- 
   subset(pa_df, select=c(`Candidate Name`,  
@@ -1389,7 +1389,7 @@ names(pa_df.donations_by_month_occupation)[
 ```
 
 
-```{r echo=FALSE, Clinton_donations_by_donation_month_and_occupation_list}
+```{r echo=FALSE, Clinton_Donations_by_Donation_Month_and_Occupation_List}
 # Look at Clinton only for month/occupation plot
 pa_df.donations_by_month_occupation_clinton <- 
   subset(pa_df.donations_by_month_occupation, 
@@ -1415,7 +1415,7 @@ print("CLINTON MONTH/OCCUPATION TABLE: ")
 pa_df.donations_by_month_occupation_clinton[1:20, ]
 ```
 
-```{r echo=FALSE, Clinton_donations_by_month_and_occupation_plot, fig.width=10}
+```{r echo=FALSE, Clinton_Donations_by_Month_and_Occupation_Plot, fig.width=10}
 # Plot Clinton donations by donation month and occupation
 library(ggplot2)
 ggplot(data=pa_df.donations_by_month_occupation_clinton,
@@ -1429,7 +1429,7 @@ ggplot(data=pa_df.donations_by_month_occupation_clinton,
   scale_y_log10()
 ```
 
-```{r echo=FALSE, Trump_donations_by_donation_month_and_occupation_list}
+```{r echo=FALSE, Trump_Donations_by_Donation_Month_and_Occupation_List}
 # Look at Trump only for month/occupation plot
 pa_df.donations_by_month_occupation_trump <- 
   subset(pa_df.donations_by_month_occupation, 
@@ -1455,7 +1455,7 @@ print("TRUMP MONTH/OCCUPATION TABLE: ")
 pa_df.donations_by_month_occupation_trump[1:20, ]
 ```
 
-```{r echo=FALSE, Trump_donations_by_month_and_occupation_plot, fig.width=10}
+```{r echo=FALSE, Trump_Donations_by_Month_and_Occupation_Plot, fig.width=10}
 # Plot Trump donations by donation month and occupation
 library(ggplot2)
 ggplot(data=pa_df.donations_by_month_occupation_trump,
